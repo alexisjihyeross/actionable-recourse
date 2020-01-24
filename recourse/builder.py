@@ -15,6 +15,7 @@ try:
     from recourse.cplex_helper import Cplex, SparsePair, set_cpx_parameters, set_cpx_display_options, set_cpx_time_limit, set_cpx_node_limit, toggle_cpx_preprocessing, DEFAULT_CPLEX_PARAMETERS
 except ImportError:
     pass
+    DEFAULT_CPLEX_PARAMETERS = {}
 
 try:
     from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
