@@ -65,6 +65,7 @@ class RecourseBuilder(object):
         # attach action set
         assert isinstance(action_set, ActionSet)
         assert len(action_set) == len(self._coefficients)
+
         if not action_set.aligned:
             action_set.align(self._coefficients)
 
@@ -87,10 +88,14 @@ class RecourseBuilder(object):
 
         self._apriori_infeasible = False ## useful if we want to hardcode conditions where
                                          ## we won't run the MIP, like empty actionsets.
+        
+        print("attaching x")
         # attach features
         self._x = None
         if x is not None:
             self.x = x
+
+        print("attached x")
 
         assert self._check_rep()
 
@@ -185,7 +190,9 @@ class RecourseBuilder(object):
         x = np.array(x, dtype = np.float_).flatten()
         assert len(x) == self.n_variables
         self._x = x
+        print("building mip")
         self.build_mip()
+        print("done building mip")
 
     #### model ####
     @property
@@ -352,7 +359,7 @@ class RecourseBuilder(object):
         if cost_function_type == 'percentile':
 
             actions, percentiles = self._action_set.feasible_grid(x = self._x, return_actions = True, return_percentiles = True, return_immutable = False)
-
+            print("actions_builder: ", actions)
             for n, a in actions.items():
 
                 if len(a) >= 2:
