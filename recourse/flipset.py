@@ -161,10 +161,11 @@ class Flipset(object):
         assert cost_type in self._valid_cost_types, \
             'cost_type must be one of %r' % self._valid_cost_types
 
-        print("before RecourseBuilder")
+        # print("before RecourseBuilder")
         if self._builder is None:
             self._builder = RecourseBuilder(action_set = self.action_set, x = self.x, coefficients = self._coefs, intercept = self._intercept, mip_cost_type = cost_type, solver=self._solver)
-        print("end RecourseBuilder")
+        # print("FLIPSET ACTIONS: ", self._build_er.actions)
+        # print("end RecourseBuilder")
 
         items = self._builder.populate(total_items = total_items, enumeration_type = enumeration_type, time_limit = time_limit, node_limit = node_limit, display_flag = display_flag)
         self._add(items)

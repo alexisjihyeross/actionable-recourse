@@ -410,9 +410,9 @@ class _ActionElement(object):
 
         # generate grid
         try:
-            print("start: ", start)
-            print("stop: ", stop)
-            print("step: ", step)
+            # print("start: ", start)
+            # print("stop: ", stop)
+            # print("step: ", step)
             grid = np.arange(start, stop + step, step)
         except Exception:
             ipsh()

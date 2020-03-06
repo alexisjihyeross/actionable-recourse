@@ -89,13 +89,13 @@ class RecourseBuilder(object):
         self._apriori_infeasible = False ## useful if we want to hardcode conditions where
                                          ## we won't run the MIP, like empty actionsets.
         
-        print("attaching x")
+        # print("attaching x")
         # attach features
         self._x = None
         if x is not None:
             self.x = x
 
-        print("attached x")
+        # print("attached x")
 
         assert self._check_rep()
 
@@ -190,9 +190,10 @@ class RecourseBuilder(object):
         x = np.array(x, dtype = np.float_).flatten()
         assert len(x) == self.n_variables
         self._x = x
-        print("building mip")
+        # print("building mip")
         self.build_mip()
-        print("done building mip")
+        # print("x actions: ", self.actions)
+        # print("done building mip")
 
     #### model ####
     @property
@@ -359,7 +360,8 @@ class RecourseBuilder(object):
         if cost_function_type == 'percentile':
 
             actions, percentiles = self._action_set.feasible_grid(x = self._x, return_actions = True, return_percentiles = True, return_immutable = False)
-            print("actions_builder: ", actions)
+            # print("actions_builder: ", actions)
+            self.actions = actions
             for n, a in actions.items():
 
                 if len(a) >= 2:
@@ -1044,6 +1046,8 @@ class _RecourseBuilderPyomo(RecourseBuilder):
         """Get an Abstract model and create a Concrete model with input data."""
         self.model = self.create_abstract_model()
         build_info, indices = self._get_mip_build_info()
+        actions = self.actions
+        # print("build_mip actions: ", actions)
         if not self._apriori_infeasible:
             self._mip_indices = indices
             self._mip = self.model.create_instance(build_info)
