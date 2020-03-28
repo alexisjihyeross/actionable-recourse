@@ -629,6 +629,7 @@ class ActionSet(object):
         indices = {}
         elements = {}
         for j, n in enumerate(names):
+            # print(n)
             elements[n] = _ActionElement(name = n,
                                          values = X[:, j],
                                          step_type = default_step_type,
